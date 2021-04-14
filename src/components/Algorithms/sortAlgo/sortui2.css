@@ -1,0 +1,56 @@
+.maindiv{
+  min-height: 100%;
+  width: 100%;
+}
+.animationcanvas {
+  background-color: lightblue;
+  width: 100%;
+  min-height: 270px;
+  max-height: 95%;
+  align-content: center;
+  position: relative;
+}
+.array {
+  border-color: black;
+  background-color: white;
+  border: solid;
+  display: inline-block;
+  margin: 1px;
+  text-align: end;
+  font-size: larger;
+  box-shadow: 0 8px 8px -6px black;
+}
+.arrayTrans,.arrayCounter, .arrayUnsorted{
+  border-color: black;
+  background-color: white;
+  border: solid;
+  display: inline-block;
+  margin: 1px;
+  text-align: top;
+  margin-bottom: 0px;
+  box-shadow: 0 8px 8px -6px black;
+}
+.buttons_back{
+
+  margin-bottom: 0%;
+  min-height: 5%;
+  background-color: rgb(3, 3, 41);
+  position: relative;
+}
+.buttons{
+  background-color: transparent;
+  color: white;
+  width: 25%;
+  align-items: center;
+  border-color: rgb(255, 255, 255);
+}
+.playbutton{
+  background-color: greenyellow;
+  color: black;
+  font-size: 15px;
+  width: 25%;
+  margin-left: 37.5%;
+  align-items: center;
+  border-color: rgb(255, 255, 255);
+  border-radius: 12px;
+}
