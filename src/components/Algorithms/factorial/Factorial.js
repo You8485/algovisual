@@ -9,7 +9,7 @@ class Factorial extends Component {
         var ans=[10,20,30]
         return (
             <>
-                Working
+                On Working
           </>        
         )
     }
