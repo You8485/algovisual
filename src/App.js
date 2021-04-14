@@ -18,8 +18,8 @@ import InsertionSort from './components/Algorithms/sortAlgo/InsertionSort'
 import SelectionSort from './components/Algorithms/sortAlgo/SelectionSort'
 import BinarySearch from './components/Algorithms/sortAlgo/BinarySearch'
 import MergeSort from './components/Algorithms/sortAlgo/MergeSort'
-//import QuickSort from './components/Algorithms/sortAlgo/'
-//import RQuickSort from './components/Algorithms/sortAlgo/'
+import QuickSort from './components/Algorithms/sortAlgo/QuickSort'
+import RQuickSort from './components/Algorithms/sortAlgo/RQuickSort'
 //import RadixSort from './components/Algorithms/sortAlgo/'
 import CountingSort from './components/Algorithms/sortAlgo/CountingSort'
 import BucketSort from './components/Algorithms/sortAlgo/BucketSort'
@@ -48,8 +48,8 @@ function App() {
 
           <Route path="/divideandconquer" exact component={DivideAndConquerList}></Route>
           <Route path="/divideandconquer/mergesort" exact component={MergeSort}></Route>
-          {/*<Route path="/divideandconquer/quicksort" exact component={QuickSort}></Route>
-          <Route path="/divideandconquer/randomizequick" exact component={RQuickSort}></Route>*/}
+          <Route path="/divideandconquer/quicksort" exact component={QuickSort}></Route>
+          <Route path="/divideandconquer/randomizedquicksort" exact component={RQuickSort}></Route>
           <Route path="/divideandconquer/countingsort" exact component={CountingSort}></Route>
           <Route path="/divideandconquer/bucketsort" exact component={BucketSort}></Route>
           {/*<Route path="/divideandconquer/radix" exact component={RadixSort}></Route>*/}

@@ -15,7 +15,7 @@ class DivideandConquerList extends Component {
             <h1>
                 Divide And Conquer List      
             </h1>  
-            <h2>
+            <ul>
                     <li>
                         <a href="/divideandconquer/mergesort">MergeSort</a>
                     </li>
@@ -26,8 +26,14 @@ class DivideandConquerList extends Component {
                     <li>
                         <a href="/divideandconquer/bucketsort">Bucket Sort</a>
                     </li>
+                    <li>
+                        <a href="/divideandconquer/quicksort">Quick Sort</a>
+                    </li>
+                    <li>
+                        <a href="/divideandconquer/randomizedquicksort">R Quick Sort</a>
+                    </li>
 
-                </h2>
+                </ul>
             </>
         )
     }
