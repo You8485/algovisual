@@ -24,10 +24,14 @@ export default class CountingSort extends React.Component{
       arrayCounter:[0,0,0,0,0,0,0,0,0,0],
       arrayTrans: [0,1,2,3,4,5,6,7,8,9],
       ANIMATION_SPEED_MS : 800,
-      flag:false,
+      isAnimationOn:true,
+      arrayPrevstate:[],
+      flag:0,
     };
 
     this.getRandomArray = this.getRandomArray.bind(this);
+    this.prevState = this.prevState.bind(this);
+    this.prevStateSorting = this.prevStateSorting.bind(this);
     this.getUpdatedArray = this.getUpdatedArray.bind(this);
     this.addToArray = this.addToArray.bind(this);
     this.deleteArray = this.deleteArray.bind(this);
@@ -37,6 +41,49 @@ export default class CountingSort extends React.Component{
 
   componentDidMount() {
     this.getRandomArray(); 
+  }
+
+  prevState(){
+    if(this.state.flag===1){
+      setTimeout(() => {
+        const array = this.state.arrayPrevstate.slice();
+        this.setState({array:array});
+        this.setState({flag:0});
+        this.setState({arrayCounter:[0,0,0,0,0,0,0,0,0,0]});
+        const arrayBars = document.getElementsByClassName('array');
+        const arrayUnsorted = document.getElementsByClassName('arrayUnsorted');
+        for(let j=0; j<arrayBars.length; j++){
+          const barStyle = arrayBars[j].style;
+          const barUnsortStyle = arrayUnsorted[j].style;
+          barStyle.backgroundColor = 'transparent';
+          barUnsortStyle.backgroundColor = 'white';
+          barStyle.color = 'transparent';
+          barUnsortStyle.color = 'black';
+        }
+      }, ANIMATION_SPEED_MS/2); 
+    }
+  }
+
+  prevStateSorting(){
+    setTimeout(() => {
+      const array = this.state.arrayPrevstate.slice();
+        this.setState({array:array});
+        this.setState({flag:0});
+        this.setState({arrayCounter:[0,0,0,0,0,0,0,0,0,0]});
+        const arrayBars = document.getElementsByClassName('array');
+        const arrayUnsorted = document.getElementsByClassName('arrayUnsorted');
+        for(let j=0; j<arrayBars.length; j++){
+          const barStyle = arrayBars[j].style;
+          const barUnsortStyle = arrayUnsorted[j].style;
+          barStyle.backgroundColor = 'transparent';
+          barUnsortStyle.backgroundColor = 'white';
+          barStyle.color = 'transparent';
+          barUnsortStyle.color = 'black';
+        }
+    }, ANIMATION_SPEED_MS/2); 
+    setTimeout(() => {
+      this.countingsort();
+    }, 2*ANIMATION_SPEED_MS);
   }
 
   getRefreshArray(){
@@ -54,23 +101,31 @@ export default class CountingSort extends React.Component{
   }
 
   getUpdatedArray(){
-    const array = this.state.array.slice();
-    array.splice(array.length-1);
-    this.setState({array:array});
-    this.setState({arrayPrev:array});
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      array.splice(array.length-1);
+      this.setState({array:array});
+      this.setState({arrayPrev:array});
+    }, 2*i*ANIMATION_SPEED_MS);  
   }
 
   addToArray(){
-    const array = this.state.array.slice();
-    let Num = Number(prompt('Enter a Number'));
-    if(array.length>0){
-      while(Num<0 || Num>9){
-        Num = Number(prompt('Enter a Number between 0 to 9 !!'));
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      let Num = Number(prompt('Enter a Number'));
+      if(array.length>0){
+        while(Num<0 || Num>9){
+          Num = Number(prompt('Enter a Number between 0 to 9 !!'));
+        }
       }
-    }
-    array.push(Num);
-    this.setState({array:array});
-    this.setState({arrayPrev:array});
+      array.push(Num);
+      this.setState({array:array});
+      this.setState({arrayPrev:array});
+    }, 2*i*ANIMATION_SPEED_MS);
   }
 
   deleteArray(){
@@ -97,6 +152,15 @@ export default class CountingSort extends React.Component{
     }else{
       barwidth = 100/(11);
     }
+
+    const arrayPrevstate = this.state.array.slice();
+    this.setState({arrayPrevstate:arrayPrevstate});
+    this.setState({flag:1});
+
+    this.setState(state => ({
+      isAnimationOn: !state.isAnimationOn
+    }));
+
     const sortarray=doCounting(this.state.array);
     const arrayBars = document.getElementsByClassName('array');
     const arrayTransBars = document.getElementsByClassName('arrayTrans');
@@ -106,6 +170,13 @@ export default class CountingSort extends React.Component{
     
     for (let i = 0; i < sortarray.length; i++) {
       const [,,part]=sortarray[i];
+      if(i===sortarray.length-1){
+        setTimeout(() => {
+          this.setState(state => ({
+            isAnimationOn: !state.isAnimationOn
+          }));
+        }, (i)*ANIMATION_SPEED_MS);
+      }
       if(part==='one'){
         if(i%3===0){
           setTimeout(() => {
@@ -236,7 +307,7 @@ export default class CountingSort extends React.Component{
     return(
       <div className="maindiv">
         <div className="animationcanvas" style={{height:`${95}%`}}>
-          <div className="animationcanvas" style={{height:`150px`, minHeight:`${0}%`}}>
+          <div className="animationcanvas" >
           {array.length!==0
           ?<div>
           {array.map((value, idx) => (
@@ -316,11 +387,16 @@ export default class CountingSort extends React.Component{
           </div>
         </div>
         <div className="buttons_back">
-          <button className="buttons" onClick={this.getRefreshArray}>Generate Random Array</button>
-          <button className="buttons" onClick={this.getUpdatedArray}>Delete Last Number</button>
-          <button className="buttons" onClick={this.addToArray}>Add Number to Array</button>
-          <button className="buttons" onClick={this.deleteArray}>Delete Array</button>
-          <button className="playbutton" onClick={this.countingsort}>Start Counting Sorting</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getRefreshArray:null}>Generate Random Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getUpdatedArray:null}>Delete Last Number</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.addToArray:null}>Add Number to Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.deleteArray:null}>Delete Array</button>
+          <button className="playbutton" onClick={this.state.isAnimationOn?
+          ((this.state.flag===0)?this.countingsort:this.prevStateSorting):null}>Start Counting Sorting</button>
         </div>
       </div>
     );

@@ -17,7 +17,7 @@ class BruteForceList extends Component {
                 Bruteforce List
                 
                 </h1>
-                <h2>
+                <ul>
                     <li>
                         <a href="/bruteforce/bfs">BFS</a>
                     </li>
@@ -32,7 +32,7 @@ class BruteForceList extends Component {
                     </li>
                     
                     
-                </h2>
+                </ul>
             </>
         )
     }

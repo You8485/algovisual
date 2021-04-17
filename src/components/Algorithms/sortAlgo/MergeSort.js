@@ -22,10 +22,14 @@ export default class MergeSort extends React.Component{
       mLeftarray : 0,
       mLeftarrayTrans :0,
       ANIMATION_SPEED_MS : 800,
-      flag:false,
+      isAnimationOn:true,
+      arrayPrev:[],
+      flag:0,
     };
 
     this.getRandomArray = this.getRandomArray.bind(this);
+    this.prevState = this.prevState.bind(this);
+    this.prevStateSorting = this.prevStateSorting.bind(this);
     this.getUpdatedArray = this.getUpdatedArray.bind(this);
     this.addToArray = this.addToArray.bind(this);
     this.deleteArray = this.deleteArray.bind(this);
@@ -35,6 +39,29 @@ export default class MergeSort extends React.Component{
 
   componentDidMount() {
     this.getRandomArray(); 
+  }
+
+  prevState(){
+    if(this.state.flag===1){
+      setTimeout(() => {
+        const array = this.state.arrayPrev.slice();
+        this.setState({array:array});
+        this.setState({flag:0});
+        this.setState({mLeftarray : 0});
+      }, ANIMATION_SPEED_MS/2); 
+    }
+  }
+
+  prevStateSorting(){
+    setTimeout(() => {
+      const array = this.state.arrayPrev.slice();
+      this.setState({array:array});
+      this.setState({flag:0});
+      this.setState({mLeftarray : 0});
+    }, ANIMATION_SPEED_MS/2); 
+    setTimeout(() => {
+      this.mergesort();
+    }, 2*ANIMATION_SPEED_MS);
   }
 
   getRefreshArray(){
@@ -52,18 +79,27 @@ export default class MergeSort extends React.Component{
   }
 
   getUpdatedArray(){
-    const array = this.state.array.slice();
-    array.splice(array.length-1);
-    this.setState({array:array});
-    this.setState({arrayTrans:array});
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      array.splice(array.length-1);
+      this.setState({array:array});
+      this.setState({arrayTrans:array});
+    }, 2*i*ANIMATION_SPEED_MS);
+    
   }
 
   addToArray(){
-    const array = this.state.array.slice();
-    const Num = Number(prompt('Enter a Number'));
-    array.push(Num);
-    this.setState({array:array});
-    this.setState({arrayTrans:array});
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      const Num = Number(prompt('Enter a Number'));
+      array.push(Num);
+      this.setState({array:array});
+      this.setState({arrayTrans:array});
+    }, 2*i*ANIMATION_SPEED_MS);
   }
 
   deleteArray(){
@@ -111,6 +147,15 @@ export default class MergeSort extends React.Component{
       barwidth = 100/(11);
       barwidthD = 100/(11);
     }
+
+    const arrayPrev = this.state.array.slice();
+    this.setState({arrayPrev:arrayPrev});
+    this.setState({flag:1});
+
+    this.setState(state => ({
+      isAnimationOn: !state.isAnimationOn
+    }));
+
     let mLeftarray=(100-this.state.array.length*barwidth)/2;
     let mLeftarrayFirst=mLeftarray;
     let mLeftarrayDivide=0;
@@ -207,6 +252,11 @@ export default class MergeSort extends React.Component{
               }
             }
           }
+          if(i===sortarray.length-1){
+            this.setState(state => ({
+              isAnimationOn: !state.isAnimationOn
+            }));
+          }
           this.setState({array:array});
         }, (temp+i)*ANIMATION_SPEED_MS);
         
@@ -297,11 +347,16 @@ export default class MergeSort extends React.Component{
           {console.log('Transarray:',arrayTrans)}
         </div>
         <div className="buttons_back">
-          <button className="buttons" onClick={this.getRefreshArray}>Generate Random Array</button>
-          <button className="buttons" onClick={this.getUpdatedArray}>Delete Last Number</button>
-          <button className="buttons" onClick={this.addToArray}>Add Number to Array</button>
-          <button className="buttons" onClick={this.deleteArray}>Delete Array</button>
-          <button className="playbutton" onClick={this.mergesort}>Start Merge Sorting</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getRefreshArray:null}>Generate Random Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getUpdatedArray:null}>Delete Last Number</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.addToArray:null}>Add Number to Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.deleteArray:null}>Delete Array</button>
+          <button className="playbutton" onClick={this.state.isAnimationOn?
+          ((this.state.flag===0)?this.mergesort:this.prevStateSorting):null}>Start Merge Sorting</button>
         </div>
       </div>
     );

@@ -24,10 +24,15 @@ export default class QuickSort extends React.Component{
       ANIMATION_SPEED_MS : 800,
       mLeftarray : 0,
       mLeftarrayTrans :0,
-      flag:false,
+      isAnimationOn:true,
+      arrayPrev:[],
+      mLeftarrayPrev : 0,
+      flag:0,
     };
 
     this.getRandomArray = this.getRandomArray.bind(this);
+    this.prevState = this.prevState.bind(this);
+    this.prevStateSorting = this.prevStateSorting.bind(this);
     this.getUpdatedArray = this.getUpdatedArray.bind(this);
     this.addToArray = this.addToArray.bind(this);
     this.deleteArray = this.deleteArray.bind(this);
@@ -36,6 +41,55 @@ export default class QuickSort extends React.Component{
 
   componentDidMount() {
     this.getRandomArray(); 
+  }
+
+  prevState(){
+    if(this.state.flag===1){
+      setTimeout(() => {
+        const array = this.state.arrayPrev.slice();
+        const mLeftarray = this.state.mLeftarrayPrev;
+        this.setState({array:array});
+        this.setState({flag:0});
+        this.setState({mLeftarray : mLeftarray});
+        const arrayBars = document.getElementsByClassName('array');
+        for(let j=0; j<arrayBars.length; j++){
+          const barStyle = arrayBars[j].style;
+          barStyle.backgroundColor = 'white';
+          if(j===0){
+            barStyle.marginLeft= mLeftarray;
+            barStyle.marginRight= `1px`;
+          }
+          else{
+            barStyle.margin= `1px`;
+          }
+        }
+      }, ANIMATION_SPEED_MS/2); 
+    }
+  }
+
+  prevStateSorting(){
+    setTimeout(() => {
+      const array = this.state.arrayPrev.slice();
+      const mLeftarray = this.state.mLeftarrayPrev;
+        this.setState({array:array});
+        this.setState({flag:0});
+        this.setState({mLeftarray : mLeftarray});
+        const arrayBars = document.getElementsByClassName('array');
+        for(let j=0; j<arrayBars.length; j++){
+          const barStyle = arrayBars[j].style;
+          barStyle.backgroundColor = 'white';
+          if(j===0){
+            barStyle.marginLeft= mLeftarray;
+            barStyle.marginRight= `1px`;
+          }
+          else{
+            barStyle.margin= `1px`;
+          }
+        }
+    }, ANIMATION_SPEED_MS/2); 
+    setTimeout(() => {
+      this.quicksort();
+    }, 2*ANIMATION_SPEED_MS);
   }
 
   getRefreshArray(){
@@ -53,18 +107,26 @@ export default class QuickSort extends React.Component{
   }
 
   getUpdatedArray(){
-    const array = this.state.array.slice();
-    array.splice(array.length-1);
-    this.setState({array:array});
-    this.setState({arrayTrans:array});
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      array.splice(array.length-1);
+      this.setState({array:array});
+      this.setState({arrayTrans:array});
+    }, 2*i*ANIMATION_SPEED_MS);
   }
 
   addToArray(){
-    const array = this.state.array.slice();
-    const Num = Number(prompt('Enter a Number'));
-    array.push(Num);
-    this.setState({array:array});
-    this.setState({arrayTrans:array});
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      const Num = Number(prompt('Enter a Number'));
+      array.push(Num);
+      this.setState({array:array});
+      this.setState({arrayTrans:array});
+    }, 2*i*ANIMATION_SPEED_MS);
   }
 
   deleteArray(){
@@ -94,8 +156,18 @@ export default class QuickSort extends React.Component{
     }else{
       barwidth = 100/(11);
     }
+
+    const arrayPrev = this.state.array.slice();
+    this.setState({arrayPrev:arrayPrev});
+    this.setState({flag:1});
+
+    this.setState(state => ({
+      isAnimationOn: !state.isAnimationOn
+    }));
+
     let mLeftarray=(100-this.state.array.length*barwidth)/2;
     this.setState({mLeftarray:mLeftarray});
+    this.setState({mLeftarrayPrev:mLeftarray});
     const sortarray=doQuick(temparray);
     const arrayBars = document.getElementsByClassName('array');
     const arrayTransBars = document.getElementsByClassName('arrayTrans');
@@ -230,6 +302,11 @@ export default class QuickSort extends React.Component{
             }
             this.setState({array:array});
           }
+          if(i===sortarray.length-1){
+            this.setState(state => ({
+              isAnimationOn: !state.isAnimationOn
+            }));
+          }
         }, i*ANIMATION_SPEED_MS);
         
       }
@@ -316,11 +393,16 @@ export default class QuickSort extends React.Component{
           {console.log('Transarray:',arrayTrans)}
         </div>
         <div className="buttons_back">
-          <button className="buttons" onClick={this.getRefreshArray}>Generate Random Array</button>
-          <button className="buttons" onClick={this.getUpdatedArray}>Delete Last Number</button>
-          <button className="buttons" onClick={this.addToArray}>Add Number to Array</button>
-          <button className="buttons" onClick={this.deleteArray}>Delete Array</button>
-          <button className="playbutton" onClick={this.quicksort}>Start Quick Sorting</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getRefreshArray:null}>Generate Random Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getUpdatedArray:null}>Delete Last Number</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.addToArray:null}>Add Number to Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.deleteArray:null}>Delete Array</button>
+          <button className="playbutton" onClick={this.state.isAnimationOn?
+          ((this.state.flag===0)?this.quicksort:this.prevStateSorting):null}>Start Quick Sorting</button>
         </div>
       </div>
     );

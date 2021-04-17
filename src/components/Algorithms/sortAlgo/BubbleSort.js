@@ -18,10 +18,15 @@ export default class BubbleSort extends React.Component{
 
     this.state = {
       array: [],
+      isAnimationOn:true,
+      arrayPrev:[],
+      flag:0,
       ANIMATION_SPEED_MS:800,
     };
 
     this.getRandomArray = this.getRandomArray.bind(this);
+    this.prevState = this.prevState.bind(this);
+    this.prevStateSorting = this.prevStateSorting.bind(this);
     this.getUpdatedArray = this.getUpdatedArray.bind(this);
     this.addToArray = this.addToArray.bind(this);
     this.deleteArray = this.deleteArray.bind(this);
@@ -30,6 +35,28 @@ export default class BubbleSort extends React.Component{
 
   componentDidMount() {
     this.getRandomArray(); 
+  }
+
+  prevState(){
+    if(this.state.flag===1){
+      setTimeout(() => {
+        const array = this.state.arrayPrev.slice();
+        this.setState({array:array});
+        this.setState({flag:0});
+      }, ANIMATION_SPEED_MS/2); 
+    }
+  }
+
+
+  prevStateSorting(){
+    setTimeout(() => {
+      const array = this.state.arrayPrev.slice();
+      this.setState({array:array});
+      this.setState({flag:0});
+    }, ANIMATION_SPEED_MS/2); 
+    setTimeout(() => {
+      this.bubblesort();
+    }, 2*ANIMATION_SPEED_MS);
   }
 
   getRefreshArray(){
@@ -46,16 +73,24 @@ export default class BubbleSort extends React.Component{
   }
 
   getUpdatedArray(){
-    const array = this.state.array.slice();
-    array.splice(array.length-1);
-    this.setState({array:array});
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      array.splice(array.length-1);
+      this.setState({array:array});
+    }, 2*i*ANIMATION_SPEED_MS);
   }
 
   addToArray(){
-    const array = this.state.array.slice();
-    const Num = Number(prompt('Enter a Number'));
-    array.push(Num);
-    this.setState({array:array});
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      const Num = Number(prompt('Enter a Number'));
+      array.push(Num);
+      this.setState({array:array});
+    }, 2*i*ANIMATION_SPEED_MS);
   }
 
   deleteArray(){
@@ -84,6 +119,14 @@ export default class BubbleSort extends React.Component{
     const sortarray=doBubble(this.state.array);
     const arrayBars = document.getElementsByClassName('array');
     
+    const arrayPrev = this.state.array.slice();
+    this.setState({arrayPrev:arrayPrev});
+    this.setState({flag:1});
+    {console.log('Array Prev:',arrayPrev)}
+    {console.log('Flag:',this.state.flag)}
+    this.setState(state => ({
+      isAnimationOn: !state.isAnimationOn
+    }));
     
     for (let i = 0; i < sortarray.length; i++) {
       const isColorChange = i % 3 !== 2;
@@ -110,6 +153,13 @@ export default class BubbleSort extends React.Component{
             array[barOneIdx]=array[barTwoIdx];
             array[barTwoIdx]=temp;
             this.setState({array:array});
+          }
+          if(i===sortarray.length-1){
+            this.setState(state => ({
+              isAnimationOn: !state.isAnimationOn
+            }));
+            {console.log('Array Prev:',arrayPrev)}
+            {console.log('Flag:',this.state.flag)}
           }
         }, i*ANIMATION_SPEED_MS);
         
@@ -158,7 +208,7 @@ export default class BubbleSort extends React.Component{
                 verticalAlign:`bottom`,
                 fontSize: `small`,
                 fontWeight: `bold`,
-                marginLeft:`${(idx===0)?((100-this.state.array.length*barwidth)/2):(null)}%`
+                marginLeft:`${(idx===0)?((100-this.state.array.length*barwidth)/2):(null)}%`,
               }}>{this.state.array[idx]}</div>
             ))
           :<p style={{fontSize:`30px`,height:`265px`, textAlign:`center`,margin:`${0}%`,fontWeight:'bold',position:`relative`}}>Insert Array</p>
@@ -167,11 +217,16 @@ export default class BubbleSort extends React.Component{
           {console.log('array:',array)}
         </div>
         <div className="buttons_back">
-          <button className="buttons" onClick={this.getRefreshArray}>Generate Random Array</button>
-          <button className="buttons" onClick={this.getUpdatedArray}>Delete Last Number</button>
-          <button className="buttons" onClick={this.addToArray}>Add Number to Array</button>
-          <button className="buttons" onClick={this.deleteArray}>Delete Array</button>
-          <button className="playbutton" onClick={this.bubblesort}>Start Bubble Sorting</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getRefreshArray:null}>Generate Random Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getUpdatedArray:null}>Delete Last Number</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.addToArray:null}>Add Number to Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.deleteArray:null}>Delete Array</button>
+          <button className="playbutton" onClick={this.state.isAnimationOn?
+          ((this.state.flag===0)?this.bubblesort:this.prevStateSorting):null}>Start Bubble Sorting</button>
         </div>
       </div>
     );

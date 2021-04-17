@@ -21,11 +21,15 @@ export default class BinarySearch extends React.Component{
 
     this.state = {
       array: [],
+      isAnimationOn:true,
       status:'Search A Number',
+      flag:0,
       ANIMATION_SPEED_MS : 800,
     };
 
     this.getRandomArray = this.getRandomArray.bind(this);
+    this.prevState = this.prevState.bind(this);
+    this.prevStateSearching = this.prevStateSearching.bind(this);
     this.getUpdatedArray = this.getUpdatedArray.bind(this);
     this.addToArray = this.addToArray.bind(this);
     this.deleteArray = this.deleteArray.bind(this);
@@ -34,6 +38,35 @@ export default class BinarySearch extends React.Component{
 
   componentDidMount() {
     this.getRandomArray(); 
+  }
+
+  prevState(){
+    if(this.state.flag===1){
+      setTimeout(() => {
+        const arrayBars = document.getElementsByClassName('array');
+        for(let j=0; j<arrayBars.length; j++){
+          const barStyle = arrayBars[j].style;
+          barStyle.backgroundColor = 'white';
+        }
+        this.setState({status:'Search A Number'});
+        this.setState({flag:0});
+      }, ANIMATION_SPEED_MS/2); 
+    }
+  }
+
+  prevStateSearching(){
+    setTimeout(() => {
+      const arrayBars = document.getElementsByClassName('array');
+        for(let j=0; j<arrayBars.length; j++){
+          const barStyle = arrayBars[j].style;
+          barStyle.backgroundColor = 'white';
+        }
+        this.setState({status:'Search A Number'});
+        this.setState({flag:0});
+    }, ANIMATION_SPEED_MS/2); 
+    setTimeout(() => {
+      this.binarysearch();
+    }, 2*ANIMATION_SPEED_MS);
   }
 
   getRefreshArray(){
@@ -51,21 +84,29 @@ export default class BinarySearch extends React.Component{
   }
 
   getUpdatedArray(){
-    const array = this.state.array.slice();
-    array.splice(array.length-1);
-    this.setState({array:array});
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      array.splice(array.length-1);
+      this.setState({array:array});
+    }, 2*i*ANIMATION_SPEED_MS);
   }
 
   addToArray(){
-    const array = this.state.array.slice();
-    let Num = Number(prompt('Enter a Number'));
-    if(array.length>0){
-      while(Num<array[array.length-1]){
-        Num = Number(prompt('Enter a Number larger or equal to last one !!'));
+    const i = this.state.flag;
+    this.prevState();
+    setTimeout(() => {
+      const array = this.state.array.slice();
+      let Num = Number(prompt('Enter a Number'));
+      if(array.length>0){
+        while(Num<array[array.length-1]){
+          Num = Number(prompt('Enter a Number larger or equal to last one !!'));
+        }
       }
-    }
-    array.push(Num);
-    this.setState({array:array});
+      array.push(Num);
+      this.setState({array:array});
+    }, 2*i*ANIMATION_SPEED_MS);
   }
 
   deleteArray(){
@@ -81,6 +122,12 @@ export default class BinarySearch extends React.Component{
     let barheight = 0;
     let j=0;
     let barwidth = 0;
+
+    this.setState({flag:1});
+    this.setState(state => ({
+      isAnimationOn: !state.isAnimationOn
+    }));
+
     if (minNum!==maxNum){
       barheight = 265/(maxNum-minNum);
     }else{
@@ -136,7 +183,11 @@ export default class BinarySearch extends React.Component{
                 barOneStyle.backgroundColor = 'transparent';
             }
           }
-         
+          if(i===sortarray.length-1){
+            this.setState(state => ({
+              isAnimationOn: !state.isAnimationOn
+            }));
+          }
         }, i*ANIMATION_SPEED_MS);
         
       }
@@ -200,11 +251,16 @@ export default class BinarySearch extends React.Component{
           {console.log('Transarray:',arrayTrans)}
         </div>
         <div className="buttons_back" style={{marginTop:`${0}%`}}>
-          <button className="buttons" onClick={this.getRefreshArray}>Generate Random Array</button>
-          <button className="buttons" onClick={this.getUpdatedArray}>Delete Last Number</button>
-          <button className="buttons" onClick={this.addToArray}>Add Number to Array</button>
-          <button className="buttons" onClick={this.deleteArray}>Delete Array</button>
-          <button className="playbutton" onClick={this.binarysearch}>Search a Number</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getRefreshArray:null}>Generate Random Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.getUpdatedArray:null}>Delete Last Number</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.addToArray:null}>Add Number to Array</button>
+          <button className="buttons" onClick={this.state.isAnimationOn?
+          this.deleteArray:null}>Delete Array</button>
+          <button className="playbutton" onClick={this.state.isAnimationOn?
+          ((this.state.flag===0)?this.binarysearch:this.prevStateSearching):null}>Search a Number</button>
         </div>
       </div>
     );

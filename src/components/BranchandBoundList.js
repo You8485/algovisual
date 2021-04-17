@@ -18,7 +18,7 @@ class BranchandBoundList extends Component {
                     Branch And Bound
                 </h1>
 
-                <h2>
+                <ul>
                     <li>
                         <a href="/branchandbound/bst">Binary Search Tree</a>
                     </li>
@@ -30,7 +30,7 @@ class BranchandBoundList extends Component {
                         <a href="/branchandbound/binarysearch">Binary Search</a>
                     </li>
 
-                </h2>
+                </ul>
             </>
         )
     }
