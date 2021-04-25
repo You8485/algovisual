@@ -12,6 +12,7 @@ class DivideandConquerList extends Component {
     render() {
         return (
             <>
+            
             <h1>
                 Divide And Conquer List      
             </h1>  
@@ -33,6 +34,11 @@ class DivideandConquerList extends Component {
                         <a href="/divideandconquer/randomizedquicksort">R Quick Sort</a>
                     </li>
 
+                    <br></br>
+                    <br></br>
+                    <a href="../">
+                        <button  style={{width:`${10}%`,borderRadius:`10px`,fontSize:`large`}}>Home</button>
+                         </a>  
                 </ul>
             </>
         )

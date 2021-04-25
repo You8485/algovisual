@@ -129,6 +129,7 @@ class TopologicalSort extends Component {
                     <button id="edge" className={style2.buttonClass}>Edge</button>
                     <button id="topo" className={style2.buttonClass}>Topological Sort</button>
                     <button id="reset" className={style2.buttonClass}>Reset</button>
+                    <button  className={style2.buttonClass}><a href="../" style={{textDecoration: 'none'}}>Home</a></button>
                     <div id="myModal" className={styl.modal}>
                         <span className={styl.close} id="close">&times;</span>
                         {/*<button id="node-submit" className={styl.bt_class}>Submit</button>*/}

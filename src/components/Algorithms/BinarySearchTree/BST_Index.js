@@ -155,6 +155,7 @@ export class BST_Index extends Component {
                     <button id = "Inorder-btn" className={style2.buttonClass}>Inorder Travel</button>
                     <button id = "Postorder-btn" className={style2.buttonClass}>Postorder Travel</button>
                     <button id = "Preorder-btn" className={style2.buttonClass}>Preorder Travel</button>
+                    <button  className={style2.buttonClass}><a href="../" style={{textDecoration: 'none'}}>Home</a></button>
 
                     {/*<span id = "speed-label">Animation Speed:</span>
                     <input id = "speed-slider" type="range" min = "0" max = "1.5" step = "0.1" value = "0.3"></input>

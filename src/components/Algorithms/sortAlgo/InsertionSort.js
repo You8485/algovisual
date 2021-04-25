@@ -251,6 +251,9 @@ export default class InsertionSort extends React.Component{
           this.deleteArray:null}>Delete Array</button>
           <button className="playbutton" onClick={this.state.isAnimationOn?
           ((this.state.flag===0)?this.insertionsort:this.prevStateSorting):null}>Start Insertion Sorting</button>
+          <a href="/bruteforce">
+            <button className="playbutton" style={{width:`${12.5}%`,marginLeft:`${25}%`}}>Back</button>
+          </a>
         </div>
       </div>
     );

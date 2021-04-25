@@ -13,6 +13,7 @@ class BruteForceList extends Component {
     render() {
         return (
             <>
+            
                 <h1>
                 Bruteforce List
                 
@@ -30,6 +31,11 @@ class BruteForceList extends Component {
                     <li>
                         <a href="/bruteforce/selectionsort">Selection Sort </a>
                     </li>
+                    <br></br>
+                    <br></br>
+                    <a href="../">
+                        <button  style={{width:`${10}%`,borderRadius:`10px`,fontSize:`large`}}>Home</button>
+                         </a>  
                     
                     
                 </ul>

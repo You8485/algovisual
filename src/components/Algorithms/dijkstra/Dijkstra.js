@@ -181,6 +181,7 @@ class Dijkstra extends Component {
                         <button id="edge" className={style2.buttonClass}>Edge</button>
                         <button id="dijkstra" className={style2.buttonClass}> Find shortest path </button>
                         <button id="reset" className={style2.buttonClass}>Reset</button>
+                        <button className={style2.buttonClass} ><a href="../" style={{textDecoration: 'none'}}>Home</a></button>
                     </div>
                     <p style={{display: `inline`,fontWeight: `bold`,
                         fontSize: `large`,}}>

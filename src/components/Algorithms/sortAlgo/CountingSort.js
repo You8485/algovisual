@@ -307,7 +307,7 @@ export default class CountingSort extends React.Component{
     return(
       <div className="maindiv">
         <div className="animationcanvas" style={{height:`${95}%`}}>
-          <div className="animationcanvas" >
+          <div className="animationcanvas">
           {array.length!==0
           ?<div>
           {array.map((value, idx) => (
@@ -347,7 +347,7 @@ export default class CountingSort extends React.Component{
           :<p style={{fontSize:`30px`,height:`265px`, textAlign:`center`,margin:`${0}%`,fontWeight:'bold',position:`relative`}}>Insert Array</p>
           }
           </div>
-          <div className="animationcanvas" style={{height:`${80}%`,minHeight:`${0}%`}}>
+          <div className="animationcanvas" >
            {
            arrayTrans.map((val, id) => (
               <div
@@ -397,6 +397,9 @@ export default class CountingSort extends React.Component{
           this.deleteArray:null}>Delete Array</button>
           <button className="playbutton" onClick={this.state.isAnimationOn?
           ((this.state.flag===0)?this.countingsort:this.prevStateSorting):null}>Start Counting Sorting</button>
+          <a href="/divideandconquer">
+            <button className="playbutton" style={{width:`${12.5}%`,marginLeft:`${25}%`}}>Back</button>
+          </a>
         </div>
       </div>
     );

@@ -12,9 +12,18 @@ class BacktrackingList extends Component {
     render() {
         return (
             <>
+                
                 <h1>
                     Backtracking    
                 </h1>  
+
+                <ul>
+                <br></br>
+                    <br></br>
+                    <a href="../">
+                        <button  style={{width:`${10}%`,borderRadius:`10px`,fontSize:`large`}}>Home</button>
+                         </a>  
+                </ul>
             </>
         )
     }

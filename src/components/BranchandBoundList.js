@@ -14,6 +14,7 @@ class BranchandBoundList extends Component {
     render() {
         return (
             <>
+            
                 <h1>
                     Branch And Bound
                 </h1>
@@ -29,6 +30,11 @@ class BranchandBoundList extends Component {
                     <li>
                         <a href="/branchandbound/binarysearch">Binary Search</a>
                     </li>
+                    <br></br>
+                    <br></br>
+                    <a href="../">
+                        <button  style={{width:`${10}%`,borderRadius:`10px`,fontSize:`large`}}>Home</button>
+                         </a>  
 
                 </ul>
             </>

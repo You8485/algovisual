@@ -261,6 +261,9 @@ export default class BinarySearch extends React.Component{
           this.deleteArray:null}>Delete Array</button>
           <button className="playbutton" onClick={this.state.isAnimationOn?
           ((this.state.flag===0)?this.binarysearch:this.prevStateSearching):null}>Search a Number</button>
+          <a href="/branchandbound">
+            <button className="playbutton" style={{width:`${12.5}%`,marginLeft:`${25}%`}}>Back</button>
+          </a>
         </div>
       </div>
     );

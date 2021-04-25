@@ -357,6 +357,9 @@ export default class MergeSort extends React.Component{
           this.deleteArray:null}>Delete Array</button>
           <button className="playbutton" onClick={this.state.isAnimationOn?
           ((this.state.flag===0)?this.mergesort:this.prevStateSorting):null}>Start Merge Sorting</button>
+          <a href="/divideandconquer">
+            <button className="playbutton" style={{width:`${12.5}%`,marginLeft:`${25}%`}}>Back</button>
+          </a>
         </div>
       </div>
     );

@@ -172,6 +172,10 @@ class BFS extends Component {
                     <button id="dfs" className={style2.buttonClass}>DFS</button>
                     <button id="bnode" className={style2.buttonClass}>Enter Node BFS</button>
                     <button id="dnode" className={style2.buttonClass}>Enter Node DFS</button>
+                    <br></br>
+                    <br></br>
+                    
+                        <button  className={style2.buttonClass}><a href="../" style={{textDecoration: 'none'}}>Home</a></button>
 
                     <button id="reset" className={style2.buttonClass}>Reset</button>
                     <div id="myModal" className={styl.modal}>
