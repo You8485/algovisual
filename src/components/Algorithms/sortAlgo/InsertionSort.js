@@ -89,7 +89,10 @@ export default class InsertionSort extends React.Component{
     this.prevState();
     setTimeout(() => {
       const array = this.state.array.slice();
-      const Num = Number(prompt('Enter a Number'));
+      let Num = Number(prompt('Enter a Number'));
+      while(isNaN(Num)){
+        Num = Number(prompt('Enter a valid Number'));
+      }
       array.push(Num);
       this.setState({array:array});
     }, 2*i*ANIMATION_SPEED_MS);

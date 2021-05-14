@@ -16,12 +16,18 @@ class DynamicProgrammingList extends Component {
                 <h1>
                     Dynamic Programming
                 </h1>
+                <ul>
+                <li>
+                <a href="/dynamicprogramming/seieve">Sieve of Eratosthenes</a>
+                </li>
 
                 <br></br>
                     <br></br>
                     <a href="../">
                         <button  style={{width:`${10}%`,borderRadius:`10px`,fontSize:`large`}}>Home</button>
                          </a>  
+                </ul>
+                
             </>
         )
     }1

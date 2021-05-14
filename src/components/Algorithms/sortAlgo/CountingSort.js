@@ -118,7 +118,7 @@ export default class CountingSort extends React.Component{
       const array = this.state.array.slice();
       let Num = Number(prompt('Enter a Number'));
       if(array.length>0){
-        while(Num<0 || Num>9){
+        while(Num<0 || Num>9||isNaN(Num)){
           Num = Number(prompt('Enter a Number between 0 to 9 !!'));
         }
       }

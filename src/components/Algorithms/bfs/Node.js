@@ -219,12 +219,8 @@ class Node{
     }
 
     blink(){
-        //console.log(cc)
-        //console.log("Blink")
-        //console.log(this);
         setTimeout(
             function(data){ 
-                //console.log(cc)
                 let i= Math.floor(Math.random() * Math.floor(6));
                 let j= Math.floor(Math.random() * Math.floor(6));
                 data.ctx.strokeStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * i) + ', ' +

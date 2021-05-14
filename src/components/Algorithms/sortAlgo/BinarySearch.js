@@ -3,7 +3,7 @@ import ReactDOM, { render } from 'react-dom';
 import './sort.css';
 import doBinarySearch from './binarysearchalgo.js';
 
-
+ 
 
 const ANIMATION_SPEED_MS = 800;
 
@@ -100,7 +100,7 @@ export default class BinarySearch extends React.Component{
       const array = this.state.array.slice();
       let Num = Number(prompt('Enter a Number'));
       if(array.length>0){
-        while(Num<array[array.length-1]){
+        while(Num<array[array.length-1]||isNaN(Num)){
           Num = Number(prompt('Enter a Number larger or equal to last one !!'));
         }
       }
@@ -138,7 +138,10 @@ export default class BinarySearch extends React.Component{
     }else{
       barwidth = 100/(11);
     }
-    const key = Number(prompt('Enter a Number you want to find'));
+    let key = Number(prompt('Enter a Number you want to find'));
+    while(isNaN(key)){
+      key = Number(prompt('Enter a valid Number'));
+    }
     {console.log('In binarysearch')}
     const sortarray=doBinarySearch(this.state.array,key);
     {console.log('In Out binarysearch')}

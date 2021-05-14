@@ -1,0 +1,16 @@
+.App {
+  text-align: center;
+}
+
+.chessCol{
+ background-color: #eee;;
+  height:50px;
+}
+.bodyClass{
+  background:rgb(46, 45, 45);
+}
+
+.chessBoardArea{
+  border:1px solid #aaa;
+  min-height:90vh;
+}

@@ -24,9 +24,9 @@ import RQuickSort from './components/Algorithms/sortAlgo/RQuickSort'
 import CountingSort from './components/Algorithms/sortAlgo/CountingSort'
 import BucketSort from './components/Algorithms/sortAlgo/BucketSort'
 
-import Factorial_f from './components/Algorithms/factorial/Factorial'
-
-
+import Factorial_f from './components/Algorithms/sortAlgo/Factorial'
+ import {Queens} from './components/Algorithms/nqueens/Render'
+import Seieve from './components/Algorithms/primeComponents/seive'
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
       <>
         <Switch>
           <Route path='/' exact component={HomePage}></Route>
-
+          
           <Route path="/recursion" exact component={Recursion_list}></Route>
           <Route path="/recursion/factorial" exact component={Factorial_f}></Route>
 
@@ -59,8 +59,10 @@ function App() {
 
           
           <Route path="/dynamicprogramming" exact component={DynamicProgramming_List}></Route>
+          <Route path="/dynamicprogramming/seieve" exact component={Seieve}></Route>
           
           <Route path="/backtracking" exact component={Backtracking_List}></Route>
+          <Route path="/backtracking/nqueens" exact component={Queens}></Route>
           
           <Route path="/branchandbound" exact component={BranchandBound_List}></Route>
           <Route path="/branchandbound/bst" exact component={BST_Index}></Route>

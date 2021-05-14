@@ -96,9 +96,15 @@ export default class BucketSort extends React.Component{
     this.prevState();
     setTimeout(() => {
       const array = this.state.array.slice();
+      const arrayCounter = this.state.arrayCounter.slice();
+      const bucket = this.state.bucket.slice();
       array.splice(array.length-1);
+      arrayCounter.splice(arrayCounter.length-1);
+      bucket.splice(bucket.length-1);
       this.setState({array:array});
       this.setState({arrayPrev:array});
+      this.setState({arrayCounter:arrayCounter});
+      this.setState({bucket:bucket});
     }, 2*i*ANIMATION_SPEED_MS); 
   }
 
@@ -107,15 +113,21 @@ export default class BucketSort extends React.Component{
     this.prevState();
     setTimeout(() => {
       const array = this.state.array.slice();
+      const arrayCounter = this.state.arrayCounter.slice();
+      const bucket = this.state.bucket.slice();
       let Num = Number(prompt('Enter a Decimal Number'));
       if(array.length>0){
-        while(Num<0 || Num>=1){
+        while(Num<0 || Num>=1 || isNaN(Num)){
           Num = Number(prompt('Enter a Number between 0 to 1 !!'));
         }
       }
       array.push(Num.toFixed(3));
+      arrayCounter.push(array.length-1);
+      bucket.push([]);
       this.setState({array:array});
       this.setState({arrayPrev:array});
+      this.setState({arrayCounter:arrayCounter});
+      this.setState({bucket:bucket});
     }, 2*i*ANIMATION_SPEED_MS);
   }
 
