@@ -41,6 +41,12 @@ class TopologicalSort extends Component {
         /*TopoLogical Sort */
         this.topo_id=document.getElementById("topo");
         this.topo_id.addEventListener('click',this.topologicalSort);
+
+        /*Reset */
+        this.reset_id=document.getElementById("reset");
+        this.reset_id.addEventListener('click',()=>{
+            window.location.reload();
+        });
     }
 
     

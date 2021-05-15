@@ -21,6 +21,11 @@ class BacktrackingList extends Component {
                 <li>
                 <a href="/backtracking/nqueens">NQueens</a>
                 </li>
+
+                <li>
+                <a href="/backtracking/sudoku">Sudoku</a>
+                </li>
+
                 <br></br>
                     <br></br>
                     <a href="../">

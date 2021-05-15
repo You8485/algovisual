@@ -46,6 +46,12 @@ class Dijkstra extends Component {
         this.dijkstra_id=document.getElementById("dijkstra");
         this.dijkstra_id.addEventListener('click',this.dijkstra_algo);
 
+        /*Reset */
+        this.reset_id=document.getElementById("reset");
+        this.reset_id.addEventListener('click',()=>{
+            window.location.reload();
+        });
+
     }
 
     dijkstra_algo(){

@@ -1,5 +1,6 @@
 import {BrowserRouter as Router,Switch, Route} from 'react-router-dom';
 //import './App.css';
+import React from 'react'
 import HomePage from './components/HomePage';
 import Recursion_list from './components/RecursionList';
 import Bruteforce_List from './components/BruteForceList';
@@ -25,8 +26,11 @@ import CountingSort from './components/Algorithms/sortAlgo/CountingSort'
 import BucketSort from './components/Algorithms/sortAlgo/BucketSort'
 
 import Factorial_f from './components/Algorithms/sortAlgo/Factorial'
- import {Queens} from './components/Algorithms/nqueens/Render'
+import {Queens} from './components/Algorithms/nqueens/Render'
 import Seieve from './components/Algorithms/primeComponents/seive'
+import Sudoku from './components/Algorithms/sudokuSolve/Sudoku'
+
+const ComponentSudoku= React.lazy(()=>import('./components/Algorithms/sudokuSolve/Sudoku'))
 
 function App() {
   return (
@@ -63,6 +67,7 @@ function App() {
           
           <Route path="/backtracking" exact component={Backtracking_List}></Route>
           <Route path="/backtracking/nqueens" exact component={Queens}></Route>
+          <Route path="/backtracking/sudoku" exact component={Sudoku}></Route>
           
           <Route path="/branchandbound" exact component={BranchandBound_List}></Route>
           <Route path="/branchandbound/bst" exact component={BST_Index}></Route>
